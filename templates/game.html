@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block head %}
+
+
+{% endblock %}
+
+{% block content %}
+<div id='md-screen-con' class='sm-screen-con'>
+    <aside>
+        <div id='burger'>
+            <span class='burger'></span>
+            <span class='burger'></span>
+            <span class='burger'></span>
+        </div>
+        
+        <div class="inner-box">
+            <div id="instructions">
+              <span id='instruct'><a href="{{ url_for('leavegame') }}" class="active">QUIT GAME</a></span>
+            </div>
+            
+                <span class='welcome'>WELCOME</span>
+                <span id='username' class='user'>{{username}}</span>
+            <br>
+            <div id="you-left">
+              <div id='lives'>
+                  <span class='user'>LIFES </span>
+                  <span class='user'>3</span>
+              </div>
+              <div id='score'>
+                  <span class='user'>SCORE</span>
+                  <span class='user single {{username}}'>0</span>
+              </div>
+              <br>
+              <div id='leader-board'>
+                  <span class='user leader-board'>LEADER BOARD</span>
+                  <span></span><span></span><span>SCORE</span>
+                  
+                  {%  for item in leader %}
+                  <span class='user lead'>{{loop.index}}</span>
+                  <span class='user lead'>{{item[0]}}</span>
+                  <span class='user lead {{item[0]}}'>{{item[1]}}</span>
+                  {% endfor%}
+                  
+              </div>
+              <br>
+              <div id='online'>
+                  <span class='user online'>USERS ONLINE</span>
+                  <span class='user'></span>
+                  <span class="user">LIFES</span>
+                  <span class="user">SCORE</span>
+                  <div id='online-users'>
+                    {% for key, user in on_line.items() %}
+                    <span class='user usr-name'>{{user['username']}}</span>
+                    <span class='user usr-life'>3</span>
+                    <span class='user usr-score {{user["username"]}}'>{{user['score']}}</span>
+                    {% endfor %}
+                  </div>
+                  
+              </div>
+            </div>
+        </div>
+    
+    </aside>
+    <div id='board'>
+        <div class="sqr-con">
+          {% for id,type in type_id %}
+          <div id='{{id}}' class='sqr'><span class='type'>{{type}}</span></div>
+          {% endfor %}
+        
+        </div>
+    </div>
+    <div class="q-a-outer">
+      <div id='question-answer'>
+        <div class="surround">
+          <p class="question-a"></p>
+          <hr>
+          <p class="question-b"></p>
+        </div>
+        <div class='input-ans'>
+          <input class="ans-inp" type="text" placeholder="Enter answer here">
+        </div>
+        <div class="ans-button">
+          <button id="ans-button">SUBMIT</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src={{url_for('static',filename='js/game.js')}}> </script>
+{% endblock %}

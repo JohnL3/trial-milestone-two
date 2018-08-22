@@ -1,6 +1,36 @@
+import sys
+sys.path.append('..')
 import unittest
-from my_functions import set_up_new_user, get_question, check_answer, get_leaderboard, get_users_scores
+from data.helper import id_type, set_up_new_user, get_question, check_answer, get_leaderboard, add_user_online, remove_user_online, update_user_online
+from data.questions_answers import my_q_a
 
+class test_get_id_and_type(unittest.TestCase):
+    '''Test to ensure i get all question ids and question type'''
+    
+    def test_function_returns_list(self):
+        '''Test function returns a list'''
+        
+        result = id_type()
+        self.assertTrue(type(result) == list)
+        
+    def test_returned_list_contains_lists(self):
+        '''Returned list should contain lists'''
+        
+        result = id_type()
+        self.assertTrue(type(result[0]) == list)
+        
+    def test_length_of_list(self):
+        '''Test length of list is equal to length of questions and answers in questions_answers file'''
+        
+        result = id_type()
+        self.assertEqual(len(result), len(my_q_a))
+        
+    def test_inner_lists_length(self):
+        '''Test list inside list has length of 2'''
+        result = id_type()
+        
+        self.assertTrue(len(result[0]) == 2)
+        
 class Test_setup_users(unittest.TestCase):
     
     def test_returns_a_dictionary(self):
@@ -119,8 +149,8 @@ class Test_setup_leaderboard(unittest.TestCase):
             'c':{'username':'c','ans':[],'wrong':[],'score':2},
             'd':{'username':'d','ans':[],'wrong':[],'score':7}
         }
-        
-        result = get_leaderboard(my_users)
+        leader_board = []
+        result = get_leaderboard(my_users, leader_board)
         
         self.assertTrue(type(result) == list)
         
@@ -130,8 +160,9 @@ class Test_setup_leaderboard(unittest.TestCase):
         my_users = {
             'j':{'username':'j','ans':[],'wrong':[],'score':1},
         }
+        leader_board = []
         
-        result = get_leaderboard(my_users)
+        result = get_leaderboard(my_users, leader_board)
         
         self.assertEqual(1,len(result))
         
@@ -141,8 +172,8 @@ class Test_setup_leaderboard(unittest.TestCase):
         my_users = {
             'j':{'username':'j','ans':[],'wrong':[],'score':0},
         }
-        
-        result = get_leaderboard(my_users)
+        leader_board = []
+        result = get_leaderboard(my_users, leader_board)
         
         self.assertEqual(0,len(result))
         
@@ -158,8 +189,9 @@ class Test_setup_leaderboard(unittest.TestCase):
             'c':{'username':'c','ans':[],'wrong':[],'score':2},
             'd':{'username':'d','ans':[],'wrong':[],'score':7}
         }
+        leader_board = []
         
-        result = get_leaderboard(my_users)
+        result = get_leaderboard(my_users, leader_board)
         
         self.assertEqual(3,len(result))
         
@@ -174,43 +206,76 @@ class Test_setup_leaderboard(unittest.TestCase):
             'c':{'username':'c','ans':[],'wrong':[],'score':2},
             'd':{'username':'d','ans':[],'wrong':[],'score':7}
         }
+        leader_board = []
         
-        result = get_leaderboard(my_users)
+        result = get_leaderboard(my_users, leader_board)
         
         self.assertEqual(9,result[0][1])
         self.assertEqual('a',result[0][0])
         self.assertTrue(type(result[0]) == tuple)
         
-class Test_get_users_scores(unittest.TestCase):
-    '''Test my get_users_scores function'''
+class test_add_user_online(unittest.TestCase):
+    '''Test for adding user to online'''
     
-    def test_returns_list(self):
-        '''should return list of users and scores'''
-        my_users = {}
-        all_scores_users = get_users_scores(my_users)
+    def test_return_dict_online_users(self):
+        ''' Should return a dict for user in online dict'''
         
-        self.assertTrue(type(all_scores_users) == list)
-     
-    def test_return_list_containg_list(self):
-        '''Should return a list of tuples containing usernames and scores for each user on the game page'''
-        
-        my_users = {
-            'j':{'username':'j','ans':[],'wrong':[],'score':2}
+        online = {
+            'john':{'username':'john','ans':[],'wrong':[],'score':2}
         }
-        all_scores_users = get_users_scores(my_users)
-   
-        self.assertTrue(len(all_scores_users) == 1)
-        
-        self.assertTrue(type(all_scores_users[0]) == tuple)
-        
-    def test_tuples_in_list_contain_two_elements(self):
-        '''Test the tuples returned contain two elements'''
-        
         my_users = {
-            'j':{'username':'j','ans':[],'wrong':[],'score':2},
-            'e':{'username':'e','ans':[],'wrong':[],'score':5},
+            'john':{'username':'john','ans':[],'wrong':[],'score':2},
+            'emily':{'username':'emily','ans':[],'wrong':[],'score':0}
+           
         }
-        all_scores_users = get_users_scores(my_users)
-        print(all_scores_users)
+        user = 'emily'
+        online = add_user_online(my_users,user,online)
         
-        self.assertTrue(2 == len(all_scores_users[0]))
+        self.assertTrue(type(online[user]) == dict)
+        
+    def test_should_add_to_online(self):
+        ''' User should be added to the online dict'''
+        
+        online = {
+            'john':{'username':'john','score':2}
+        }
+        my_users = {
+            'john':{'username':'john','ans':[],'wrong':[],'score':2},
+            'emily':{'username':'emily','ans':[],'wrong':[],'score':0}
+           
+        }
+        user = 'emily'
+        online = add_user_online(my_users,user,online)
+        
+        self.assertIn('emily',online)
+        
+class test_remove_user_online(unittest.TestCase):
+    '''Test my remove_user_online function'''
+    
+    def test_i_can_remove_user(self):
+        '''Should remove user from online dict'''
+        
+        online = {
+            'emily':{'username':'emily','score':2}
+        }
+        user = 'emily'
+        
+        online = remove_user_online(user, online)
+        
+        self.assertNotIn('emily',online)
+        
+class test_update_user_online_function(unittest.TestCase):
+    '''Test my update_user_online function'''
+    
+    def test_can_update_user_online(self):
+        '''Test function updates score of user in online dict'''
+        
+        online = {
+            'emily':{'username':'emily','score':0}
+        }
+        user = 'emily'
+        
+        online = update_user_online(user, online)
+        
+        self.assertEqual(online[user]['score'],1)
+        

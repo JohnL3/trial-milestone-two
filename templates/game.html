@@ -61,6 +61,22 @@
         </div>
     
     </aside>
+    <div class='game-instructions'>
+      <div class='instructions-inner'>
+        <h1>Instructions</h1>
+        <div>
+          <ol>
+            <li>Click on a panel to get a question.</li>
+            <li>Panel border turns green for correct answers.</li>
+            <li>Panel border turns red for incorrect answers.</li>
+            <li>If your score makes the leaderboard it will show up after you Finsih game.</li>
+            <li>If you quit game you will have to come back to see if you made the leaderboard.</li>
+            <li>Its recommended to quit game via the quit game link, If you close tab or tab back you will be prompted to confirm you wish to leave.</li>
+          </ol>
+        </div>
+        <button class='close-instructions'>CLOSE</button>
+      </div>
+    </div>
     <div id='board'>
         <div class="sqr-con">
           {% for id,type in type_id %}
@@ -83,6 +99,9 @@
           <button id="ans-button">SUBMIT</button>
         </div>
       </div>
+    </div>
+    <div class='error-msg'>
+      <span>You cannot submit an EMPTY ANSWER</span>
     </div>
 </div>
 

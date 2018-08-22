@@ -68,8 +68,6 @@ def game():
                 online = add_user_online(my_users,user,online)
                 
             leader_board = get_leaderboard(my_users, leader_board)
-           
-            print('online',online)
             
             socketio.emit('in_out_game', {'data': online})
             socketio.emit('leaders', {'data': leader_board})
@@ -84,8 +82,7 @@ def game():
              else:
                 online = remove_user_online(user,online)
                 online = add_user_online(my_users,user,online)
-             print('')
-             print('ONLINE',online)
+             
              leader_board = get_leaderboard(my_users, leader_board)
             
              socketio.emit('in_out_game', {'data': online})
@@ -119,14 +116,15 @@ def answer():
     global online
     if request.method == 'POST':
         data = request.get_json()
-       
         user = session.get('username')
-        
         result = check_answer(data['questionId'],data['answer'])
        
         if result[0]['result'] == 'correct':
             online = update_user_online(user, online)
             my_users[session.get('username')]['score'] = my_users[session.get('username')]['score']+1
+        else:
+            my_users[user]['wrong'].append([result[0]['id'],result[0]['answer']])
+            print('Wrong',my_users[user]['wrong'])
             
         socketio.emit('in_out_game', {'data': online})
         score = my_users[user]['score']
@@ -142,15 +140,11 @@ def handleMessage(msg):
 
  
 @socketio.on('exitgame')
-def exitgame(usr):
+def exitgame(user):
     global online
-    user =''
-    user = usr
     
     if user in online:
         online = remove_user_online(user, online)
-        print('EXITED GAME',user)
-        print('EXITED GAME',online)
         socketio.emit('in_out_game', {'data': online})
     
     

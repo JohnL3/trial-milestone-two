@@ -1,7 +1,7 @@
 let myAlert = true;
 // used for when user clicks to close browser window
 // i need to remove user from user list of other users online
-/*window.onbeforeunload  = function(e) {
+window.onbeforeunload  = function(e) {
     if (myAlert === true) {
         let user = $('#username').text();
         clearScreen();
@@ -11,7 +11,7 @@ let myAlert = true;
         return dialoug;
     }
     myAlert = true;
-};*/
+};
 
 // basic set up of socketio and message to say its working
 let socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
@@ -91,6 +91,11 @@ if(window_width >1100) {
   $('#md-screen-con').removeClass('sm-screen-con');
 }
 
+
+$('.close-instructions').click(function(){
+  $('.game-instructions').css('display','none');
+});
+
 $('#burger').click(function(){
 
    if($('aside').css('left') === '-245px') {
@@ -121,7 +126,7 @@ $('.sqr').click(function(e){
       let data = {"quest_id": clickedOn};
       $.ajax({
         type : 'POST',
-        url : "https://question-answer-johnl3.c9users.io/questions",
+        url : "http://question-answer-johnl3.c9users.io/questions",
         contentType: 'application/json;charset=UTF-8',
         dataType: 'json',
         data : JSON.stringify(data),
@@ -138,13 +143,15 @@ $('.sqr').click(function(e){
 let previousData;
 let answers = [];
 
+
+
 // post answer to question to server 
 $('#ans-button').click(()=>{
   
-   let _id = $('.surround').attr('id');
+  let _id = $('.surround').attr('id');
   
   if(Object.getOwnPropertyNames(previousData).length > 2) {
-    $('input:radio:checked').each(function() {
+    $('input:checkbox:checked').each(function() {
       answers.push($(this).val());
     });
     
@@ -152,23 +159,38 @@ $('#ans-button').click(()=>{
       questionId: _id,
       answer: answers
     };
+    if(answers.length > 0){
+    console.log('answerData',answerData);
     postAnswers(answerData);
+    } else {
+      $('.error-msg').css('display','flex');
+      setTimeout(function(){
+        $('.error-msg').css('display','none');
+      },3000);
+    }
   } else {
     let answers = $('.ans-inp').val().split(/[\\,]\s|[\s\\,]/);
-    
-    let answerData = {
-      'questionId': _id,
-      'answer': answers
-    };
-    console.log(answerData);
-    postAnswers(answerData);
+    if(answers != '') {
+      let answerData = {
+        'questionId': _id,
+        'answer': answers
+      };
+      
+      console.log('answerData',answerData);
+      postAnswers(answerData);
+    } else {
+      $('.error-msg').css('display','flex');
+      setTimeout(function(){
+        $('.error-msg').css('display','none');
+      },3000);
+    }
   }
 });
 
 function postAnswers(data) {
   $.ajax({
       type : 'POST',
-      url : "https://question-answer-johnl3.c9users.io/answer",
+      url : "http://question-answer-johnl3.c9users.io/answer",
       contentType: 'application/json;charset=UTF-8',
       dataType: 'json',
       data : JSON.stringify(data),
@@ -219,10 +241,15 @@ if (Object.getOwnPropertyNames(data).length > 2) {
 
 function createAnswerElement(answer,item) {
       let el =`<div class='answer'>
-      <input type="radio" id="radio-`+item+`" value="`+answer+`">
+      <input type="checkbox" class="radio" id="radio-`+item+`" value="`+answer+`">
       <span>`+answer+`</span>
       </div>`;
       return el;
     }
 
+}
+
+function errorElement() {
+  let el = `<div class='error-msg'><span>You must provide an answer.</span></div>`;
+  $('.ans-button').append(el);
 }

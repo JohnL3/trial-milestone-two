@@ -1,12 +1,8 @@
 from flask import session
 from flask_session import Session
-from questions_answers import my_q_a
-from random import choice
+from data.questions_answers import my_q_a
 import operator
 
-def how_many_quest():
-    return len(my_q_a)
-    
 def id_type():
     id_Type = []
     for key in my_q_a:
@@ -73,14 +69,7 @@ def get_leaderboard(all_users, leaderboard):
     l.sort(key = operator.itemgetter(1), reverse = True)
    
     return(l[:3])
-'''    
-def get_users_scores(all_users):
-    scores = []
-    for key in all_users:
-        scores.append((all_users[key]['username'],all_users[key]['score']))
-        
-    return scores
-'''
+
 
 def add_user_online(all_users,user, all_online):
         

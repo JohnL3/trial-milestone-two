@@ -1,3 +1,5 @@
+import sys
+sys.path.append('..')
 from data.questions_answers import my_q_a
 import operator
 
@@ -45,10 +47,23 @@ def get_leaderboard(all_users):
     l.sort(key = operator.itemgetter(1), reverse = True)
    
     return(l[:3])
-    
-def get_users_scores(all_users):
-    scores = []
-    for key in all_users:
-        scores.append((all_users[key]['username'],all_users[key]['score']))
+
+def add_user_online(all_users,user, all_online):
         
-    return scores
+    add_user = {}
+    add_user['username'] = all_users[user]['username']
+    add_user['score'] = all_users[user]['score']
+    
+    all_online[user] = add_user
+    return all_online
+    
+def remove_user_online(user, all_online):
+   del all_online[user]
+
+   return all_online
+   
+def update_user_online(user, all_online):
+    update = all_online[user]
+    update['score'] = update['score']+1
+    all_online[user] = update
+    return all_online

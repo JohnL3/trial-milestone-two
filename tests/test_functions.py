@@ -178,8 +178,8 @@ class Test_setup_leaderboard(unittest.TestCase):
         self.assertEqual(0,len(result))
         
     
-    def test_returns_list_length_3(self):
-        '''Should return a list of length 3 if 3 or more players have answered questions correctly'''
+    def test_return_list_length(self):
+        '''Should return a list of length 5 as 5 users score greater than 0'''
         
         my_users = {
             'j':{'username':'j','ans':[],'wrong':[],'score':2},
@@ -187,13 +187,13 @@ class Test_setup_leaderboard(unittest.TestCase):
             'a':{'username':'a','ans':[],'wrong':[],'score':9},
             'b ':{'username':'b','ans':[],'wrong':[],'score':6},
             'c':{'username':'c','ans':[],'wrong':[],'score':2},
-            'd':{'username':'d','ans':[],'wrong':[],'score':7}
+            'd':{'username':'d','ans':[],'wrong':[],'score':0}
         }
         leader_board = []
         
         result = get_leaderboard(my_users, leader_board)
         
-        self.assertEqual(3,len(result))
+        self.assertEqual(5,len(result))
         
     def test_returns_usernames_score(self):
         '''Should return tuples with username and score and highest score/username pair should be first in list'''

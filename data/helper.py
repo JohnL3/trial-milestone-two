@@ -68,7 +68,7 @@ def get_leaderboard(all_users, leaderboard):
         
     l.sort(key = operator.itemgetter(1), reverse = True)
    
-    return(l[:3])
+    return (l)
 
 
 def add_user_online(all_users,user, all_online):

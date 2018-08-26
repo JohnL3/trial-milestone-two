@@ -90,6 +90,22 @@ form,
   margin-bottom: 20px;
 }
 
+.welcome {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.u-name {
+  text-align: end;
+}
+
+.score,
+.usr-score {
+  grid-column: 3;
+}
+.usr-score {
+  padding-left: 20px;
+}
 /********* game instructions ************/
 .game-instructions {
   width: 100%;
@@ -138,7 +154,6 @@ form,
 
 #instructions span {
   float: right;
-  padding-right: 10px;
   cursor: pointer;
   color: #2f2fe2;
   font-weight: 600;
@@ -147,6 +162,15 @@ form,
 #leader-board {
   display: grid;
   grid-template-columns: 30px 1fr 55px;
+}
+
+.leader-board {
+  color: #2f2fe2;
+}
+
+.leader-board:hover {
+  color: white;
+  cursor: pointer;
 }
 
 #lives, 
@@ -283,6 +307,65 @@ form,
   padding: 10px;
   background: black;
 }
+/********************game over***********************************************/
+.game-over {
+  width: calc(100% - 45px);
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: -1550px;
+  padding-left: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+.game-over-inner {
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 50vh;
+  background: white;
+  width: 100%;
+}
+/********************leaderboard page***************************************/
+.leaders {
+  padding-left: 55px;
+  padding-right: 10px;
+  background: #d4d1d1;
+  height: 100vh;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+.leaderboard-header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 65px 1fr 65px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin: 5px 0;
+  background: #d9d9e2;
+  text-align: center;
+}
+.username {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 65px 1fr 65px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  padding: 10px 0;
+  margin: 5px 0;
+  background: #d9d9e2;
+  text-align: center;
+}
+
+nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 2px solid;
+  padding-top: 5px;
+  text-align: center;
+}
 
 @media only screen
 	and (max-width: 656px)
@@ -308,6 +391,10 @@ form,
 			font-size: 4vw;
 		}
 		.game-instructions {
+		  height: 100vw;
+		  width: 100vh;
+		}
+		.game-over {
 		  height: 100vw;
 		  width: 100vh;
 		}
@@ -364,6 +451,11 @@ form,
       font-size: 2vw;
     }
     
+    .leaders {
+      grid-column: 2;
+      padding-left: 10px;
+    }
+    
   /******************************************************************/
     #md-screen-con {
       display: grid;
@@ -395,6 +487,18 @@ form,
     
     #question-answer {
       margin-left: 0;
+    }
+    
+    .game-over {
+      width: calc(100% - 295px);
+      padding-left: 295px;
+    }
+    .game-over-inner {
+      width: 50%;
+      text-align: center;
+    }
+    p {
+      text-align: left;
     }
 
 }

@@ -75,6 +75,8 @@ my_q_a = {
             'description': 'Enter you answer below using a space or comma seperated list.',
             'answer': ['charat', 'includes', 'indexof']
         },
+}
+'''
         '12': {
             'type': 'python',
             'question':'Name the four data types used in Python',
@@ -255,3 +257,4 @@ my_q_a = {
         },
     
 }
+'''

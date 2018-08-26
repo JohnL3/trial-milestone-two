@@ -47,7 +47,7 @@ def index():
 def leavegame():
     global leader_board
     leader_board = get_leaderboard(my_users, leader_board)
-    socketio.emit('leaders', {'data': leader_board})
+    socketio.emit('leaders', {'data': leader_board[:1]})
     return redirect(url_for('index'))
     
 @app.route('/game', methods=['POST', 'GET'])
@@ -72,7 +72,7 @@ def game():
             socketio.emit('in_out_game', {'data': online})
             socketio.emit('leaders', {'data': leader_board})
             
-            return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board)
+            return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board[:1])
         else:
              user = session.get('username')
              my_users[user] = set_up_new_user(user)
@@ -88,7 +88,7 @@ def game():
              socketio.emit('in_out_game', {'data': online})
              socketio.emit('leaders', {'data': leader_board})
              
-             return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board)
+             return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board[:1])
             
     else:
         return redirect(url_for('index'))
@@ -111,9 +111,10 @@ def questions():
          
             return jsonify(my_quest)
         
-@app.route('/answer', methods=['POST'])
+@app.route('/answer', methods=['GET','POST'])
 def answer():
     global online
+    global leader_board
     if request.method == 'POST':
         data = request.get_json()
         user = session.get('username')
@@ -125,14 +126,47 @@ def answer():
         else:
             my_users[user]['wrong'].append([result[0]['id'],result[0]['answer']])
             print('Wrong',my_users[user]['wrong'])
-            
+          
         socketio.emit('in_out_game', {'data': online})
         score = my_users[user]['score']
         socketio.emit('my_score',{'score': score,'user':user})
         
-        data = {'msg': result}
-        return jsonify(data)
+        print('Questions count', len(my_users[user]['answered']))
+        answered_count = len(my_users[user]['answered'])
+        if answered_count == 2:
+            leader_board = get_leaderboard(my_users, leader_board)
+            
+            socketio.emit('leaders', {'data': leader_board})
+            data = {'msg': result,'game-over': True}
+            return jsonify(data)
+        else:
+            data = {'msg': result}
+            return jsonify(data)
+    else:
+        return redirect(url_for('index'))
         
+
+@app.route('/wrong', methods=['POST'])
+def wrong():
+    if 'username' in session:
+        user = session.get('username')
+        if request.method == 'POST':
+            data = request.get_json()
+            my_quest = get_question(data['quest_id'])
+            wrong_answer = my_users[user]['wrong']
+            data = {'msg': wrong_answer,'quest': my_quest}
+            return jsonify(data)
+        
+    else:
+        return redirect(url_for('index'))
+        
+@app.route('/leaderboard')
+def leaderboard():
+    global leader_board
+    leader_board = get_leaderboard(my_users, leader_board)
+    print('Leaderboard',leader_board)
+    socketio.emit('leaders', {'data': leader_board})
+    return render_template('leaderboard.html', leaders=leader_board)
         
 @socketio.on('message')
 def handleMessage(msg):

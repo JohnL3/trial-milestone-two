@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block head %}
+
+
+{% endblock %}
+
+{% block content %}
+<div id='md-screen-con'>
+    <aside>
+        <div id='burger'>
+            <span class='burger'></span>
+            <span class='burger'></span>
+            <span class='burger'></span>
+        </div>
+        <div class='inner-box'>
+            <nav >
+              <span class='home'><a href="{{ url_for('index') }}" class="active">HOME PAGE</a></span> 
+              <span id='instruct'><a href="{{ url_for('game') }}" class="active">GAME PAGE</a></span>
+            </nav>
+        </div>
+    </aside>
+    <div class="leaders">
+      <div class="leaderboard-header">
+        <span>RANK</span>
+        <span>USERNAME</span>
+        <span>SCORE</span>
+      </div>
+      <div class='all-leaders'>
+        {% for leader in leaders %}
+        <div class="username">
+          <span>{{loop.index}}</span>
+          <span>{{leader[0]}}</span>
+          <span>{{leader[1]}}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <!--<div class="username">
+        <span>2</span>
+        <span>ems_1</span>
+        <span>6</span>
+      </div>-->
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src={{url_for('static',filename='js/leader.js')}}> </script>
+{% endblock %}

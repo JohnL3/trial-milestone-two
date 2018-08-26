@@ -23,7 +23,7 @@ socket.on('message', function(msg){
       console.log(msg);
   });
 
-// when user clicks exit game this fires exitgame and removes user from user list of all users online
+// when user clicks Quit Game this fires exitgame and removes user from user list of all users online
 $('#instruct').on('click', function(){
   let user = $('#username').text();
   console.log('USER',user);
@@ -46,10 +46,9 @@ socket.on('in_out_game', function(json){
     
     console.log('in_out_game',json.data);
     let user = Object.keys(users);
-   
+    //<span class="user usr-life">`+3+`</span>
     for (let key in user) {
      let span =`<span class="user usr-name">`+users[user[key]].username+`</span>
-        <span class="user usr-life">`+3+`</span>
         <span class="user usr-score ` + users[user[key]].username + `">`+users[user[key]].score+`</span>`;
         online.append(span);
     }
@@ -59,18 +58,27 @@ socket.on('in_out_game', function(json){
 //shows the leaderboard
 socket.on('leaders', function(json){
   console.log(json.data);
-  let data = json.data;
-  let lead = $('.lead');
+  //only want top 3 for game page view
+  let data = json.data.slice(0,1);
   
+  let lead = $('.lead');
+  console.log('leaderboard',data);
   lead.html('');
   
   for (let item in data) {
     let ind = '<span class="user lead">'+(+item +1)+'</span>';
+    
      $('#leader-board').append(ind);
-    for(let val in data[item]) {
+     
+     let user, score;
+     [user, score] = data[item];
+     let userSpan = '<span class= "user lead">'+user+'</span>';
+     let scoreSpan = '<span class= "user lead usr-score">'+score+'</span>';
+     $('#leader-board').append(userSpan,scoreSpan);
+   /* for(let val in data[item]) {
       let span = '<span class="user lead">'+data[item][val]+'</span>';
       $('#leader-board').append(span);
-    }
+    }*/
   }
 });
 
@@ -115,6 +123,12 @@ $( window ).resize(function() {
   }
 });
 
+$('.leader-board').click(function(){
+  let user = $('#username').text();
+  socket.emit('exitgame', user);
+  window.location.href = 'http://question-answer-johnl3.c9users.io/leaderboard';
+  myAlert = false;
+});
  
 
 // post subject choice to server which returns a question to be answered
@@ -131,12 +145,30 @@ $('.sqr').click(function(e){
         dataType: 'json',
         data : JSON.stringify(data),
         success: function(d){
-            console.log(d);
+            console.log('your question',d);
             previousData = d;
             createQA(d,clickedOn);
             $('.q-a-outer').css('display','flex');
         }
       });
+  } else {
+    if($(this).hasClass('all-forty')) {
+      let clickedOn = $(this).attr('id');
+      let data = {"quest_id": clickedOn};
+      $.ajax({
+        type : 'POST',
+        url : "http://question-answer-johnl3.c9users.io/wrong",
+        contentType: 'application/json;charset=UTF-8',
+        dataType: 'json',
+        data : JSON.stringify(data),
+        success: function(d){
+            console.log(d);
+           // previousData = d;
+            //createQA(d,clickedOn);
+           // $('.q-a-outer').css('display','flex');
+        }
+      });
+    }
   }
 });
 
@@ -195,25 +227,50 @@ function postAnswers(data) {
       dataType: 'json',
       data : JSON.stringify(data),
         success: function(d){
-        console.log('d',d);
-        
-          setTimeout(function(){
-            $('.q-a-outer').css('display','none');
-            $('#section-c').remove();
-            if (d.msg[0].result === 'correct') {
-              $('#'+d.msg[0].id).addClass('correct answered');
-            } else {
-              $('#'+d.msg[0].id).addClass('wrong answered');
-            }
-            answers = [];
-          },500);
+        console.log('answered data',d);
+        $('.q-a-outer').css('display','none');
+        $('#section-c').remove();
+          if('game-over' in d) {
+            setTimeout(function(){
+                if (d.msg[0].result === 'correct') {
+                  $('#'+d.msg[0].id).addClass('correct answered');
+                } else {
+                  $('#'+d.msg[0].id).addClass('wrong answered');
+                }
+                answers = [];
+                gameOver();
+              },500);
+          } else {
+              setTimeout(function(){
+                //$('.q-a-outer').css('display','none');
+                //$('#section-c').remove();
+                if (d.msg[0].result === 'correct') {
+                  $('#'+d.msg[0].id).addClass('correct answered');
+                } else {
+                  $('#'+d.msg[0].id).addClass('wrong answered');
+                }
+                answers = [];
+              },500);
+          }
         }
     });
 }
 
+
+function gameOver() {
+  setTimeout(function(){
+    $('.game-over').css('display','flex');
+    let id = $('#username').text();
+    let score = $('.'+id).text();
+    $('.final-score').text(score);
+    if($('.game-over').css('left') === '-1550px') {
+        $('.game-over').animate({left: '0'})
+   }
+  },500);
+}
+
 //Display question on page add required elements
 function createQA(data, id) {
-  
 $('.surround').attr('id', id);
 
 if (Object.getOwnPropertyNames(data).length > 2) {
@@ -249,7 +306,3 @@ function createAnswerElement(answer,item) {
 
 }
 
-function errorElement() {
-  let el = `<div class='error-msg'><span>You must provide an answer.</span></div>`;
-  $('.ans-button').append(el);
-}

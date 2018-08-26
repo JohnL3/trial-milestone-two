@@ -17,12 +17,15 @@
             <div id="instructions">
               <span id='instruct'><a href="{{ url_for('leavegame') }}" class="active">QUIT GAME</a></span>
             </div>
-            
-                <span class='welcome'>WELCOME</span>
-                <span id='username' class='user'>{{username}}</span>
+              <div class='welcome'>
+                <span>WELCOME</span>
+                <div class='u-name'>
+                  <span id='username' class='user'>{{username}}</span>
+                </div>
+              </div>
             <br>
-            <div id="you-left">
-              <div id='lives'>
+            <div id="details">
+              <!--<div id='lives'>
                   <span class='user'>LIFES </span>
                   <span class='user'>3</span>
               </div>
@@ -30,15 +33,15 @@
                   <span class='user'>SCORE</span>
                   <span class='user single {{username}}'>0</span>
               </div>
-              <br>
+              <br> -->
               <div id='leader-board'>
-                  <span class='user leader-board'>LEADER BOARD</span>
+                  <span class='leader-board'>LEADER BOARD</span>
                   <span></span><span></span><span>SCORE</span>
                   
                   {%  for item in leader %}
                   <span class='user lead'>{{loop.index}}</span>
                   <span class='user lead'>{{item[0]}}</span>
-                  <span class='user lead {{item[0]}}'>{{item[1]}}</span>
+                  <span class='user lead usr-score {{item[0]}}'>{{item[1]}}</span>
                   {% endfor%}
                   
               </div>
@@ -46,12 +49,12 @@
               <div id='online'>
                   <span class='user online'>USERS ONLINE</span>
                   <span class='user'></span>
-                  <span class="user">LIFES</span>
-                  <span class="user">SCORE</span>
+                  <!--<span class="user">LIFES</span> -->
+                  <span class="score">SCORE</span>
                   <div id='online-users'>
                     {% for key, user in on_line.items() %}
                     <span class='user usr-name'>{{user['username']}}</span>
-                    <span class='user usr-life'>3</span>
+                    <!--<span class='user usr-life'>3</span> -->
                     <span class='user usr-score {{user["username"]}}'>{{user['score']}}</span>
                     {% endfor %}
                   </div>
@@ -102,6 +105,16 @@
     </div>
     <div class='error-msg'>
       <span>You cannot submit an EMPTY ANSWER</span>
+    </div>
+    <div class='game-over'>
+      <div class='game-over-inner'>
+        <h1>Congratulations</h1>
+        <h3>You have completed the game</h3>
+        <hr>
+        <div class='game-over-details'>
+          <p>Your final score is <span class='final-score'></span> out of 12</p>
+        </div>
+      </div>
     </div>
 </div>
 

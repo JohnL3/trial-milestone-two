@@ -23,8 +23,8 @@ socket.on('message', function(msg){
       console.log(msg);
   });
 
-// when user clicks Quit Game this fires exitgame and removes user from user list of all users online
-$('#instruct').on('click', function(){
+// when user clicks home this fires exitgame and removes user from user list of all users online
+$('.home').on('click', function(){
   let user = $('#username').text();
   console.log('USER',user);
   socket.emit('exitgame', user);
@@ -68,13 +68,14 @@ socket.on('leaders', function(json){
   for (let item in data) {
     let ind = '<span class="user lead">'+(+item +1)+'</span>';
     
-     $('#leader-board').append(ind);
+     //$('#leader-board').append(ind);
      
      let user, score;
      [user, score] = data[item];
      let userSpan = '<span class= "user lead">'+user+'</span>';
      let scoreSpan = '<span class= "user lead usr-score">'+score+'</span>';
-     $('#leader-board').append(userSpan,scoreSpan);
+     
+     $('#leader-board').append(ind, userSpan,scoreSpan);
    /* for(let val in data[item]) {
       let span = '<span class="user lead">'+data[item][val]+'</span>';
       $('#leader-board').append(span);
@@ -123,10 +124,10 @@ $( window ).resize(function() {
   }
 });
 
-$('.leader-board').click(function(){
+$('.my-leader-board').click(function(){
   let user = $('#username').text();
   socket.emit('exitgame', user);
-  window.location.href = 'http://question-answer-johnl3.c9users.io/leaderboard';
+  //window.location.href = 'http://question-answer-johnl3.c9users.io/leaderboard';
   myAlert = false;
 });
  

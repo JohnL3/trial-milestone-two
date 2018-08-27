@@ -13,10 +13,11 @@
             <span class='burger'></span>
         </div>
         
-        <div class="inner-box">
-            <div id="instructions">
-              <span id='instruct'><a href="{{ url_for('leavegame') }}" class="active">QUIT GAME</a></span>
-            </div>
+        <div class="aside-inner-box">
+            <nav id="quit-game">
+              <span class='my-leader-board'><a href="{{ url_for('leaderboard') }}" class="active">LEADER BOARD</a></span>
+              <span class='home'><a href="{{ url_for('leavegame') }}" class="active">HOME</a></span>
+            </nav>
               <div class='welcome'>
                 <span>WELCOME</span>
                 <div class='u-name'>
@@ -25,17 +26,8 @@
               </div>
             <br>
             <div id="details">
-              <!--<div id='lives'>
-                  <span class='user'>LIFES </span>
-                  <span class='user'>3</span>
-              </div>
-              <div id='score'>
-                  <span class='user'>SCORE</span>
-                  <span class='user single {{username}}'>0</span>
-              </div>
-              <br> -->
               <div id='leader-board'>
-                  <span class='leader-board'>LEADER BOARD</span>
+                  <span class='leader-board'>MINI LEADER BOARD</span>
                   <span></span><span></span><span>SCORE</span>
                   
                   {%  for item in leader %}
@@ -49,12 +41,12 @@
               <div id='online'>
                   <span class='user online'>USERS ONLINE</span>
                   <span class='user'></span>
-                  <!--<span class="user">LIFES</span> -->
+                  
                   <span class="score">SCORE</span>
                   <div id='online-users'>
                     {% for key, user in on_line.items() %}
                     <span class='user usr-name'>{{user['username']}}</span>
-                    <!--<span class='user usr-life'>3</span> -->
+                    
                     <span class='user usr-score {{user["username"]}}'>{{user['score']}}</span>
                     {% endfor %}
                   </div>
@@ -74,7 +66,7 @@
             <li>Panel border turns red for incorrect answers.</li>
             <li>If your score makes the leaderboard it will show up after you Finsih game.</li>
             <li>If you quit game you will have to come back to see if you made the leaderboard.</li>
-            <li>Its recommended to quit game via the quit game link, If you close tab or tab back you will be prompted to confirm you wish to leave.</li>
+            <li>Its recommended to leave game via the home or leaderboard link, If you close tab or tab back you will be prompted to confirm you wish to leave.</li>
           </ol>
         </div>
         <button class='close-instructions'>CLOSE</button>

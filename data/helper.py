@@ -49,7 +49,7 @@ def set_up_new_user(name):
     return update_my_users
 
 def get_leaderboard(all_users, leaderboard):
-    '''Return top 1 to 3 highest scores from users along with username or empty list in no correct answers'''
+    '''Return allusers with a score > 0'''
     l = []
     if len(leaderboard) > 0:
         l = leaderboard
@@ -68,7 +68,7 @@ def get_leaderboard(all_users, leaderboard):
         
     l.sort(key = operator.itemgetter(1), reverse = True)
    
-    return (l)
+    return l
 
 
 def add_user_online(all_users,user, all_online):

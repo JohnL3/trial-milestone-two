@@ -8,7 +8,6 @@ from data.helper import get_question, set_up_new_user, id_type, check_answer, ge
 my_users = {}
 leader_board = []
 online = {}
-all_users_scores = []
 
 
 app = Flask(__name__)

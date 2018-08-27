@@ -12,33 +12,31 @@
             <span class='burger'></span>
             <span class='burger'></span>
         </div>
-        <div class='inner-box'>
+        <div class='aside-inner-box'>
             <nav >
-              <span class='home'><a href="{{ url_for('index') }}" class="active">HOME PAGE</a></span> 
               <span id='instruct'><a href="{{ url_for('game') }}" class="active">GAME PAGE</a></span>
+              <span class='home'><a href="{{ url_for('index') }}" class="active">HOME PAGE</a></span> 
             </nav>
         </div>
     </aside>
     <div class="leaders">
-      <div class="leaderboard-header">
-        <span>RANK</span>
-        <span>USERNAME</span>
-        <span>SCORE</span>
-      </div>
-      <div class='all-leaders'>
-        {% for leader in leaders %}
-        <div class="username">
-          <span>{{loop.index}}</span>
-          <span>{{leader[0]}}</span>
-          <span>{{leader[1]}}</span>
+      <div class='leader-container'>
+        <span>Q & A LEADERBOARD</span>
+        <div class="leaderboard-header">
+          <span>RANK</span>
+          <span>USERNAME</span>
+          <span>SCORE</span>
         </div>
-        {% endfor %}
+        <div class='all-leaders'>
+          {% for leader in leaders %}
+          <div class="username">
+            <span>{{loop.index}}</span>
+            <span>{{leader[0]}}</span>
+            <span>{{leader[1]}}</span>
+          </div>
+          {% endfor %}
+        </div>
       </div>
-      <!--<div class="username">
-        <span>2</span>
-        <span>ems_1</span>
-        <span>6</span>
-      </div>-->
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

@@ -4,6 +4,9 @@ socket.on('connect', function(){
     socket.emit('message',{'message': 'Up and running'});
 });
 
+socket.on('message', function(msg){
+      console.log(msg);
+  });
 
 socket.on('leaders', function(json){
   console.log(json.data);

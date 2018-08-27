@@ -2,6 +2,10 @@ body, html {
     margin: 0;
 }
 /*************************************************/
+.border-box {
+  box-sizing: border-box;
+}
+/***************************************************/
 aside a {
 	text-decoration: none;
 }
@@ -52,6 +56,22 @@ aside button {
   height: 30px;
 }
 
+nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 2px solid;
+  padding-top: 5px;
+  text-align: inherit;
+}
+
+#user {
+  margin-top: 20px;
+}
+
+.home {
+  text-align: right;
+}
+
 main {
     display: flex;
     justify-content: center;
@@ -60,12 +80,11 @@ main {
     margin-left: 45px;
 }
 form, 
-.inner-box {
+.aside-inner-box {
   clear: both;
 }
 .title {
     width: 100%;
-    box-sizing: border-box;
     text-align: center;
     box-sizing: border-box;
     padding: 0 10px;
@@ -78,16 +97,26 @@ form,
   font-size: 5vw;
 }
 
-.inner-box {
+.aside-inner-box {
   display: grid;
 }
-.inner-box {
+.aside-inner-box {
   width: 210px;
   line-height: 1.5;
   letter-spacing: 1.5px;
 }
-#instructions {
+
+#quit-game {
   margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 135px 1fr;
+}
+
+#quit-game span {
+  float: right;
+  cursor: pointer;
+  color: #2f2fe2;
+  font-weight: 600;
 }
 
 .welcome {
@@ -151,27 +180,12 @@ form,
 }
 
 /************************************************/
-
-#instructions span {
-  float: right;
-  cursor: pointer;
-  color: #2f2fe2;
-  font-weight: 600;
-}
-
+/*
 #leader-board {
   display: grid;
   grid-template-columns: 30px 1fr 55px;
 }
-
-.leader-board {
-  color: #2f2fe2;
-}
-
-.leader-board:hover {
-  color: white;
-  cursor: pointer;
-}
+*/
 
 #lives, 
 #score, 
@@ -329,23 +343,40 @@ form,
 }
 /********************leaderboard page***************************************/
 .leaders {
-  padding-left: 55px;
   padding-right: 10px;
   background: #d4d1d1;
   height: 100vh;
-  padding-top: 10px;
+  padding: 10px;
   box-sizing: border-box;
+  padding-left: 55px;
 }
+
 .leaderboard-header {
   width: 100%;
   display: grid;
+  padding: 10px;
   grid-template-columns: 65px 1fr 65px;
   border: 1px solid gray;
   box-sizing: border-box;
-  padding: 10px 0;
   margin: 5px 0;
+  margin-top: 15px;
   background: #d9d9e2;
   text-align: center;
+}
+
+.leader-container {
+  box-sizing: border-box;
+  padding: 10px;
+  padding-top: 20px;
+  border: 1px solid #9e9a9a;
+  height: 100%;
+  text-align: center;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.leader-container > span {
+  font-weight: 600;
 }
 .username {
   width: 100%;
@@ -356,14 +387,6 @@ form,
   padding: 10px 0;
   margin: 5px 0;
   background: #d9d9e2;
-  text-align: center;
-}
-
-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 2px solid;
-  padding-top: 5px;
   text-align: center;
 }
 
@@ -499,6 +522,10 @@ nav {
     }
     p {
       text-align: left;
+    }
+    
+    .leaderboard-header {
+      padding: 10px;
     }
 
 }

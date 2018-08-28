@@ -134,7 +134,7 @@ def answer():
         
         print('Questions count', len(my_users[user]['answered']))
         answered_count = len(my_users[user]['answered'])
-        if answered_count == 2:
+        if answered_count == 12:
             leader_board = get_leaderboard(my_users, leader_board)
             
             socketio.emit('leaders', {'data': leader_board})

@@ -88,7 +88,7 @@ socket.on('leaders', function(json){
 
 // called if browser window is being closed 
 function clearScreen() {
-  $('#you-left').text('You closed tab, Needed to clear you from online users. If you didnt mean to leave, click quit game and rejoin.');
+  $('#details').text('You closed tab, Needed to clear you from online users. If you didnt mean to leave, click quit game and rejoin.');
   $('.sqr-con').css('display','none');
   $('')
 }

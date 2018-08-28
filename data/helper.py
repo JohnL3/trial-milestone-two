@@ -3,13 +3,22 @@ from flask_session import Session
 from data.questions_answers import my_q_a
 import operator
 
+'''
+id_type function returns all the keys and the value of type field in questions_answers file
+this data is then passed and used in game.html file ... key as a id for question div and type as a text discription describing
+what subject the question is based on eg javascript 
+'''
 def id_type():
     id_Type = []
     for key in my_q_a:
        id_Type.append([key, my_q_a[key]['type']])
        
     return id_Type
-
+'''
+The function get_question is used to return a question when user clicks a panel on the game page. When panel is clicked a id which
+is a key in the questions_answers file is sent to backend and this is used then to display the question. Also other information is
+filtered out before being sent back.
+'''
 def get_question(id):
     q = {}
     q_a = my_q_a[id]
@@ -19,6 +28,10 @@ def get_question(id):
             
     return q
     
+'''
+The check_answer function is used to compare the the answer to a question sent back to backend with the actual answer
+in the quest_answer file.
+'''
 def check_answer(id, answer):
     quest_answer = my_q_a[id]['answer']
     
@@ -39,6 +52,7 @@ This function is used to set up details on each user
 and add them to a dictionary of all users
 So I can store which question he has answered
 and which question he has got wrong.
+and scores.
 '''
 def set_up_new_user(name):
     update_my_users = {}
@@ -48,6 +62,11 @@ def set_up_new_user(name):
     update_my_users['score'] = 0
     return update_my_users
 
+'''
+The get_leaderboard function is used to store all users who make it on to the leaderboard, it also sorts them from highest score
+to lowest score. passes them through a set to remove duplicate username and score eg if tom played twice and scored 4 twice i only want
+to see username tom score 4 once .. if tom played again and got a score of 3 tom would then appear twice as score is different
+'''
 def get_leaderboard(all_users, leaderboard):
     '''Return allusers with a score > 0'''
     l = []
@@ -70,7 +89,10 @@ def get_leaderboard(all_users, leaderboard):
    
     return l
 
-
+'''
+The add_user_online function is to create a dict of users online on game page, so i can show what users are online playing the game.The
+opposed to all users which stores all users in game or not.
+'''
 def add_user_online(all_users,user, all_online):
         
     add_user = {}
@@ -79,12 +101,17 @@ def add_user_online(all_users,user, all_online):
     
     all_online[user] = add_user
     return all_online
-    
+
+'''
+The remove_user_online is used to remove user from online when he leaves the game page
+'''
 def remove_user_online(user, all_online):
    del all_online[user]
 
    return all_online
-  
+'''
+The update_user_online is used to update users score if he is online ... so if user answers a question right this function is called
+'''
 def update_user_online(user, all_online):
     update = all_online[user]
     update['score'] = update['score']+1

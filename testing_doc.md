@@ -1,6 +1,6 @@
 # All about Testing both automated and manual will be covered in this file.
 
-I will discuss automated tests first for which the test file can be found at ['Test_functions.py'](../tests/test_functions.py).
+I will discuss automated tests first for which the test file can be found at ['Test_functions.py'](./tests/test_functions.py)
 
 This uses unittest which was imported and sys ... which i needed for sys.path.append('..') so i could access my functions
 
@@ -133,106 +133,6 @@ like both to be given a rank of 1 but as it stands its not a rank they actually 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Next I will talk about the game page
-
-On desktop this page should be opened full size with a panel on the left containing nvagation (leaderboard, home) display username
-display mini leaderboard and display online users
 
 
 

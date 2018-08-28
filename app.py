@@ -71,7 +71,7 @@ def game():
             socketio.emit('in_out_game', {'data': online})
             socketio.emit('leaders', {'data': leader_board})
             
-            return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board[:1])
+            return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board)
         else:
              user = session.get('username')
              my_users[user] = set_up_new_user(user)
@@ -87,7 +87,7 @@ def game():
              socketio.emit('in_out_game', {'data': online})
              socketio.emit('leaders', {'data': leader_board})
              
-             return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board[:1])
+             return render_template('game.html',username=user, type_id = idType, on_line = online, leader = leader_board)
             
     else:
         return redirect(url_for('index'))

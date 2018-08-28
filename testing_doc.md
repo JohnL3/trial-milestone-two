@@ -118,6 +118,30 @@ like both to be given a rank of 1 but as it stands its not a rank they actually 
 
 25. When I answer last question I will get a congratulations screen informing me I have finished the game and my final score: True
 26. When a question is answered either correctly or incorrectly clicking on a panel will no longer call a question: True
+27. When I leave the game page my score should be reset to 0 and I have to start game again: True
+
+
+### Leaderboard page testing
+
+1. I should be able to navigate to the home page by clicking a link: True
+2. I should be able to navigate to the game page if I have a username and click a link: True
+3. I should be redirected to home page if I click game link and I dont have a username: True
+4. I should see my username and score on the Leaderboard if I have answered a question correctly: True
+5. If I have more than one attempts with different scores I should see these on leaderboard: True
+6. I should see usernames and scores of other players who have answered questions correctly: True
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

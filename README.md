@@ -32,9 +32,9 @@ As a user I would like to know who is online and when they leave. This is achiev
 While i dont sketch out desing ideas i generally try out layouts ideas in replit or elsewhere below are links to my test layouts.
 These would be ideas that are either going to be used or adjusted and then used.
 
-1. landing page test layout https://johnl3.github.io/layout-test/
-2. game page test layout https://johnl3.github.io/layout-test/game.html
-3. https://repl.it/@JohnL3/practiceleaderboard
+1. landing page test layout: ['On github'](https://johnl3.github.io/layout-test/)
+2. game page test layout: ['On github'](https://johnl3.github.io/layout-test/game.html)
+3. leaderboard layout test: ['On repelit'](https://repl.it/@JohnL3/practiceleaderboard)
 
 1. Choose username with length up to 12 characthers. User can choose there username on the landing page. This 
 will remain visible in the input so even when the navigate to game page or leaderboard page when the come back to the
@@ -60,13 +60,18 @@ where if you complete one set of questions you would go to next level and get mo
 
 1. cloud9
  * Recommended by course
- * https://ide.c9.io/
+ * ['Cloud9'](https://ide.c9.io/)
 2. jQuery
  * Used as it simplifies Dom manipulation
- * https://api.jquery.com/
+ * ['jQuery'](https://api.jquery.com/)
 3. Flask SocketIO
  * Used so i could show in real time users joining/leaving game ... when there score changes.
- * https://flask-socketio.readthedocs.io/en/latest/
+ * ['Flask SocketIo'](https://flask-socketio.readthedocs.io/en/latest/)
+ 
+
+## Testing
+
+Write up for testing is done here: ['Testing documentation'](./testing_doc.md)
 
 
 

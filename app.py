@@ -109,6 +109,8 @@ def questions():
             my_users[session.get('username')]['answered'].append(data['quest_id'])
          
             return jsonify(my_quest)
+        else:
+            return redirect(url_for('index'))
         
 @app.route('/answer', methods=['GET','POST'])
 def answer():

@@ -46,7 +46,7 @@ def index():
 def leavegame():
     global leader_board
     leader_board = get_leaderboard(my_users, leader_board)
-    socketio.emit('leaders', {'data': leader_board[:1]})
+    socketio.emit('leaders', {'data': leader_board})
     return redirect(url_for('index'))
     
 @app.route('/game', methods=['POST', 'GET'])
@@ -146,7 +146,7 @@ def answer():
     else:
         return redirect(url_for('index'))
         
-
+'''
 @app.route('/wrong', methods=['POST'])
 def wrong():
     if 'username' in session:
@@ -160,7 +160,8 @@ def wrong():
         
     else:
         return redirect(url_for('index'))
-        
+'''
+
 @app.route('/leaderboard')
 def leaderboard():
     global leader_board

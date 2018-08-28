@@ -59,7 +59,7 @@ socket.on('in_out_game', function(json){
 socket.on('leaders', function(json){
   console.log(json.data);
   //only want top 3 for game page view
-  let data = json.data.slice(0,1);
+  let data = json.data.slice(0,3);
   
   let lead = $('.lead');
   console.log('leaderboard',data);
@@ -127,7 +127,6 @@ $( window ).resize(function() {
 $('.my-leader-board').click(function(){
   let user = $('#username').text();
   socket.emit('exitgame', user);
-  //window.location.href = 'http://question-answer-johnl3.c9users.io/leaderboard';
   myAlert = false;
 });
  
@@ -153,7 +152,7 @@ $('.sqr').click(function(e){
         }
       });
   } else {
-    if($(this).hasClass('all-forty')) {
+    /*if($(this).hasClass('all-forty')) {
       let clickedOn = $(this).attr('id');
       let data = {"quest_id": clickedOn};
       $.ajax({
@@ -169,7 +168,7 @@ $('.sqr').click(function(e){
            // $('.q-a-outer').css('display','flex');
         }
       });
-    }
+    }*/
   }
 });
 

@@ -52,7 +52,7 @@ class Test_setup_users(unittest.TestCase):
         
         user = 'John_L3'
         new_user = set_up_new_user(user)
-        self.assertEqual(len(new_user),4)
+        self.assertEqual(len(new_user),5)
         
     def test_has_key_answered_and_wrong_score(self):
         '''Test to see it has key answered and wrong score'''
@@ -63,6 +63,7 @@ class Test_setup_users(unittest.TestCase):
         self.assertIn('answered',new_user)
         self.assertIn('wrong',new_user)
         self.assertIn('score', new_user)
+        self.assertIn('game-over', new_user)
         
     def test_key_answered_and_wrong_are_lists(self):
         '''Test to ensure key values answered and wrong are of type list'''

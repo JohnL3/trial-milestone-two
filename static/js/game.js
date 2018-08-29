@@ -138,7 +138,8 @@ $('.sqr').click(function(e){
       $(this).css('background','#607D8B')
       console.log(clickedOn);
       let data = {"quest_id": clickedOn};
-      let url = 'https://jl-question-answer.herokuapp.com/questions';
+      let url = 'http://question-answer-johnl3.c9users.io/questions';
+      //let url = 'https://jl-question-answer.herokuapp.com/questions';
       $.ajax({
         type : 'POST',
         url : url,
@@ -221,7 +222,8 @@ $('#ans-button').click(()=>{
 });
 
 function postAnswers(data) {
-  let url = "https://jl-question-answer.herokuapp.com/answer";
+  let url = 'http://question-answer-johnl3.c9users.io/answer';
+  //let url = "https://jl-question-answer.herokuapp.com/answer";
   $.ajax({
       type : 'POST',
       url : url,

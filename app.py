@@ -45,9 +45,12 @@ def index():
 @app.route('/leavegame', methods=['GET', 'POST'])
 def leavegame():
     global leader_board
-    leader_board = get_leaderboard(my_users, leader_board)
-    socketio.emit('leaders', {'data': leader_board})
-    return redirect(url_for('index'))
+    if 'username' in session:
+        user = session.get('username')
+        my_users[user]['game-over'] = True
+        leader_board = get_leaderboard(my_users, leader_board)
+        socketio.emit('leaders', {'data': leader_board})
+        return redirect(url_for('index'))
     
 @app.route('/game', methods=['POST', 'GET'])
 def game():
@@ -135,6 +138,7 @@ def answer():
         print('Questions count', len(my_users[user]['answered']))
         answered_count = len(my_users[user]['answered'])
         if answered_count == 12:
+            my_users[user]['game-over'] = True
             leader_board = get_leaderboard(my_users, leader_board)
             
             socketio.emit('leaders', {'data': leader_board})
@@ -165,10 +169,13 @@ def wrong():
 @app.route('/leaderboard')
 def leaderboard():
     global leader_board
-    leader_board = get_leaderboard(my_users, leader_board)
-    print('Leaderboard',leader_board)
-    socketio.emit('leaders', {'data': leader_board})
-    return render_template('leaderboard.html', leaders=leader_board)
+    if 'username' in session:
+        user = session.get('username')
+        my_users[user]['game-over'] = True
+        leader_board = get_leaderboard(my_users, leader_board)
+        print('Leaderboard',leader_board)
+        socketio.emit('leaders', {'data': leader_board})
+        return render_template('leaderboard.html', leaders=leader_board)
         
 @socketio.on('message')
 def handleMessage(msg):

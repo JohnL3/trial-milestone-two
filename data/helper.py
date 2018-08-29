@@ -60,6 +60,7 @@ def set_up_new_user(name):
     update_my_users['answered'] = []
     update_my_users['wrong'] = []
     update_my_users['score'] = 0
+    update_my_users['game-over'] = False
     return update_my_users
 
 '''
@@ -73,7 +74,7 @@ def get_leaderboard(all_users, leaderboard):
     if len(leaderboard) > 0:
         l = leaderboard
         for user,score in all_users.items():
-            if score['score'] != 0:
+            if score['score'] != 0 and score['game-over'] == True:
                 r =(user,score['score'])
                 l.append(r)
         l = list(set(l))

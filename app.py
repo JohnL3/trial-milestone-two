@@ -22,6 +22,7 @@ Session(app)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    session.permanent = True
     username = ''
     
     if 'username' in session:

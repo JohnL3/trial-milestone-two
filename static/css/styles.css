@@ -131,6 +131,7 @@ form,
 .score,
 .usr-score {
   grid-column: 3;
+  text-align: center;
 }
 .usr-score {
   padding-left: 20px;

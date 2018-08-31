@@ -177,6 +177,10 @@ def leaderboard():
         print('Leaderboard',leader_board)
         socketio.emit('leaders', {'data': leader_board})
         return render_template('leaderboard.html', leaders=leader_board)
+    else:
+        leader_board = get_leaderboard(my_users, leader_board)
+        return render_template('leaderboard.html', leaders=leader_board)
+        
         
 @socketio.on('message')
 def handleMessage(msg):

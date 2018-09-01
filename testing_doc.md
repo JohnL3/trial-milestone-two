@@ -33,20 +33,19 @@ on mobiles you should get the collasped view with hamburger but also if mobile i
 This is done using an orientation landscape media query, which will need more work as I am not used to doing something like this, and
 it is the first time I have attempted it. So I have a feeling it may not look right on all the various mobile screen sizes out there.
 
-And for the leaderboard page orientation landscape dose not apply.
-
 
 
 ### Starting with the index.html page (landing page)
 
 1. On landing page there are two parts to test first there is a link to the leaderboard page.
- * I clicked this link and it brings me to the leaderboard page: True
+  * I clicked this link and it brings me to the leaderboard page: True
 2. On landing page there is a input for getting your username and it has a 12 characther limit
- * I can only create a username with max 12 characthers: True
- * I cannot submit an empty input value: True
+  * I can only create a username with max 12 characthers: True
+  * I cannot submit an empty input value: True
 3. When i click the button it shuould submit my username and direct me to the game page: True
 4. When I return to the landing page my username should be in the input box saving me having to remember it even if i have closed down
 website and returned later: True
+5. As a person who hasnt created a username yet i can visit leaderboard page: True
 
 
 ### Game page testing

@@ -4,6 +4,7 @@ from flask_session import Session
 from flask_socketio import SocketIO, send
 import json
 from data.helper import get_question, set_up_new_user, id_type, check_answer, get_leaderboard, add_user_online, update_user_online, remove_user_online
+import config
 
 my_users = {}
 leader_board = []
@@ -11,13 +12,15 @@ online = {}
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mycrazyoldcodingsecret'
+#app.config['SECRET_KEY'] = 'mycrazyoldcodingsecret'
+app.config['SECRET_KEY'] = config.SECRET_CONFIG['secret']
 socketio = SocketIO(app)
 
 SESSION_TYPE = 'filesystem'
 
 app.config.from_object(__name__)
 Session(app)
+
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -40,7 +43,7 @@ def index():
     
             return redirect(url_for('game'))
     
-    return render_template('index.html',username=username)
+    return render_template('index.html',username=username, url=config.SECRET_CONFIG['url'])
     
     
 @app.route('/leavegame', methods=['GET', 'POST'])

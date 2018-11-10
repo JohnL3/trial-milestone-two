@@ -271,7 +271,7 @@ form,
   margin-left: 40px;
   border: 1px solid black;
   box-sizing: border-box;
-  padding: 10px 60px;
+  padding: 10px 20px;
   background: white;
   width: 80%;
 }
@@ -289,10 +289,29 @@ form,
 }
 .answer {
  height: 30px;
+ display: flex;
+ align-items: center;
 }
+
+.answer input {
+  width: 18px;
+  height: 18px;
+}
+
+.answer span {
+  font-size: 18px;
+  padding-left: 5px;
+  padding-bottom: 4px;
+}
+
 .ans-button {
   display: grid;
   justify-content: center;
+}
+
+.ans-button button {
+  padding: 8px 15px;
+  margin-top: 5px;
 }
 
 .ans-inp {
@@ -301,6 +320,7 @@ form,
   border-bottom: 1px solid black;
   width: 100%;
   margin-bottom: 25px;
+  outline: navajowhite;
 }
 
 .error-msg {

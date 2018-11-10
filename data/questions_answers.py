@@ -14,9 +14,10 @@ my_q_a = {
         },
         '2': {
             'type': 'javascript',
-            'question': 'Name three string methods.',
-            'description': 'Enter you answer below using a space or comma seperated list.',
-            'answer': ['charat', 'includes', 'indexof']
+            'question': 'Which method returns a shallow copy of a portion of an array into a new array.',
+            'description': 'Choose from the options provided.',
+            'choices': ['Slice', 'Splice'],
+            'answer': ['Slice']
         },
         '3': {
             'type': 'python',
@@ -71,9 +72,10 @@ my_q_a = {
         },
         '11': {
             'type': 'javascript',
-            'question': 'Name three string methods.',
-            'description': 'Enter you answer below using a space or comma seperated list.',
-            'answer': ['charat', 'includes', 'indexof']
+            'question': 'Which of the following are string methods.',
+            'description': 'Choose all that apply.',
+            'choices': ['reverse', 'replace', 'split', 'splice', 'slice'],
+            'answer': ['replace', 'split']
         },
 }
 '''
@@ -92,9 +94,10 @@ my_q_a = {
         },
         '14': {
             'type': 'javascript',
-            'question': 'Name three string methods.',
-            'description': 'Enter you answer below using a space or comma seperated list.',
-            'answer': ['charat', 'includes', 'indexof']
+            'question': 'Which of the following are string methods.',
+            'description': 'Choose all that apply.',
+            'choices': ['reverse', 'replace', 'split', 'splice', 'slice'],
+            'answer': ['replace', 'split']
         },
         '15': {
             'type': 'python',

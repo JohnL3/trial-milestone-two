@@ -289,8 +289,9 @@ form,
   font-size: 18px;
 }
 .answer {
- height: 30px;
- display: flex;
+ min-height: 30px;
+ display: grid;
+ grid-template-columns: 25px 1fr;
  align-items: center;
 }
 

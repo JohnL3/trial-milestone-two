@@ -34,9 +34,10 @@ my_q_a = {
         },
         '5': {
             'type': 'javascript',
-            'question': 'Name three string methods.',
-            'description': 'Enter you answer below using a space or comma seperated list.',
-            'answer': ['charat', 'includes', 'indexof']
+            'question': 'Whcih of the following would give an array containing the number 7.',
+            'description': 'Choose all that apply.',
+            'choices': ['Arry(7)', 'Arry.of(7)', 'Arry(7,5)'],
+            'answer': ['Arry.of(7)', 'Arry(7,5)']
         },
         '6': {
             'type': 'python',

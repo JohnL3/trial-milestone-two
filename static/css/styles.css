@@ -274,6 +274,7 @@ form,
   padding: 10px 20px;
   background: white;
   width: 80%;
+  position: relative;
 }
 
 .surround {
@@ -555,5 +556,3 @@ form,
     }
 
 }
-
-

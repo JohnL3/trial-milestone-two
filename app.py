@@ -12,7 +12,6 @@ online = {}
 
 
 app = Flask(__name__)
-#app.config['SECRET_KEY'] = 'mycrazyoldcodingsecret'
 app.config['SECRET_KEY'] = config.SECRET_CONFIG['secret']
 socketio = SocketIO(app)
 
@@ -20,7 +19,6 @@ SESSION_TYPE = 'filesystem'
 
 app.config.from_object(__name__)
 Session(app)
-
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -133,13 +131,12 @@ def answer():
             my_users[session.get('username')]['score'] = my_users[session.get('username')]['score']+1
         else:
             my_users[user]['wrong'].append([result[0]['id'],result[0]['answer']])
-            print('Wrong',my_users[user]['wrong'])
+            
           
         socketio.emit('in_out_game', {'data': online})
         score = my_users[user]['score']
         socketio.emit('my_score',{'score': score,'user':user})
         
-        print('Questions count', len(my_users[user]['answered']))
         answered_count = len(my_users[user]['answered'])
         if answered_count == 12:
             my_users[user]['game-over'] = True
@@ -154,22 +151,7 @@ def answer():
     else:
         return redirect(url_for('index'))
         
-'''
-@app.route('/wrong', methods=['POST'])
-def wrong():
-    if 'username' in session:
-        user = session.get('username')
-        if request.method == 'POST':
-            data = request.get_json()
-            my_quest = get_question(data['quest_id'])
-            wrong_answer = my_users[user]['wrong']
-            data = {'msg': wrong_answer,'quest': my_quest}
-            return jsonify(data)
         
-    else:
-        return redirect(url_for('index'))
-'''
-
 @app.route('/leaderboard')
 def leaderboard():
     global leader_board
@@ -177,7 +159,7 @@ def leaderboard():
         user = session.get('username')
         my_users[user]['game-over'] = True
         leader_board = get_leaderboard(my_users, leader_board)
-        print('Leaderboard',leader_board)
+       
         socketio.emit('leaders', {'data': leader_board})
         return render_template('leaderboard.html', leaders=leader_board)
     else:
@@ -201,4 +183,4 @@ def exitgame(user):
     
 
 if __name__ == "__main__":
-    socketio.run(app,host=os.getenv('IP'), port=int(os.getenv('PORT')))
+    socketio.run(app,host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)

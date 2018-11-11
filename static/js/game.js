@@ -28,7 +28,6 @@ socket.on('message', function(msg){
 // when user clicks home this fires exitgame and removes user from user list of all users online
 $('.home').on('click', function(){
   let user = $('#username').text();
-  console.log('USER',user);
   socket.emit('exitgame', user);
   myAlert = false;
 });
@@ -46,9 +45,8 @@ socket.on('in_out_game', function(json){
     online.html('');
     let users = json.data;
     
-    console.log('in_out_game',json.data);
     let user = Object.keys(users);
-    //<span class="user usr-life">`+3+`</span>
+    
     for (let key in user) {
      let span =`<span class="user usr-name">`+users[user[key]].username+`</span>
         <span class="user usr-score ` + users[user[key]].username + `">`+users[user[key]].score+`</span>`;
@@ -59,18 +57,16 @@ socket.on('in_out_game', function(json){
 
 //shows the leaderboard
 socket.on('leaders', function(json){
-  console.log(json.data);
+ 
   //only want top 3 for game page view
   let data = json.data.slice(0,3);
   
   let lead = $('.lead');
-  console.log('leaderboard',data);
+  
   lead.html('');
   
   for (let item in data) {
     let ind = '<span class="user lead">'+(+item +1)+'</span>';
-    
-     //$('#leader-board').append(ind);
      
      let user, score;
      [user, score] = data[item];
@@ -78,10 +74,6 @@ socket.on('leaders', function(json){
      let scoreSpan = '<span class= "user lead usr-score">'+score+'</span>';
      
      $('#leader-board').append(ind, userSpan,scoreSpan);
-   /* for(let val in data[item]) {
-      let span = '<span class="user lead">'+data[item][val]+'</span>';
-      $('#leader-board').append(span);
-    }*/
   }
 });
 
@@ -140,7 +132,7 @@ $('.sqr').click(function(e){
   if(!$(this).hasClass('answered')) {
       let clickedOn = $(this).attr('id');
       $(this).css('background','#607D8B')
-      console.log(clickedOn);
+      
       let data = {"quest_id": clickedOn};
       
       let url = '/questions';
@@ -152,7 +144,7 @@ $('.sqr').click(function(e){
         dataType: 'json',
         data : JSON.stringify(data),
         success: function(d){
-            console.log('your question',d);
+            
             previousData = d;
             createQA(d,clickedOn);
             $('.q-a-outer').css('display','flex');
@@ -181,7 +173,7 @@ $('#ans-button').click(()=>{
       answer: answers
     };
     if(answers.length > 0){
-    console.log('answerData',answerData);
+    
     postAnswers(answerData);
     } else {
       $('.error-msg').css('display','flex');
@@ -197,7 +189,6 @@ $('#ans-button').click(()=>{
         'answer': answers
       };
       
-      console.log('answerData',answerData);
       postAnswers(answerData);
     } else {
       $('.error-msg').css('display','flex');
@@ -218,7 +209,7 @@ function postAnswers(data) {
       dataType: 'json',
       data : JSON.stringify(data),
         success: function(d){
-        console.log('answered data',d);
+        
         $('.q-a-outer').css('display','none');
         $('#section-c').remove();
           if('game-over' in d) {
@@ -233,8 +224,7 @@ function postAnswers(data) {
               },500);
           } else {
               setTimeout(function(){
-                //$('.q-a-outer').css('display','none');
-                //$('#section-c').remove();
+               
                 if (d.msg[0].result === 'correct') {
                   $('#'+d.msg[0].id).addClass('correct answered');
                 } else {

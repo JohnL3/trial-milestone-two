@@ -9,7 +9,6 @@ socket.on('message', function(msg){
   });
 
 socket.on('leaders', function(json){
-  console.log(json.data);
   
   let data = json.data;
   let lead = $('.all-leaders');

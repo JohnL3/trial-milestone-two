@@ -412,7 +412,7 @@ form,
   background: #d9d9e2;
   text-align: center;
 }
-/*656*/
+
 @media only screen
 	and (max-width: 812px)
 	and (max-height: 415px)
@@ -450,11 +450,6 @@ form,
 		}
 	}
     
-/*@media only screen and (min-width: 657px) {
-    #burger {
-      display: block;
-    }
-}*/
 
 @media only screen and (min-width: 768px) and (min-height: 410px) {
 	  aside {

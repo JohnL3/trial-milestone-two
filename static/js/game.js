@@ -13,6 +13,8 @@ window.onbeforeunload  = function(e) {
     myAlert = true;
 };
 
+$('.sqr span').off('click');
+
 // basic set up of socketio and message to say its working
 let socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 socket.on('connect', function(){
@@ -133,13 +135,16 @@ $('.my-leader-board').click(function(){
 
 // post subject choice to server which returns a question to be answered
 $('.sqr').click(function(e){
+ 
+
   if(!$(this).hasClass('answered')) {
       let clickedOn = $(this).attr('id');
       $(this).css('background','#607D8B')
       console.log(clickedOn);
       let data = {"quest_id": clickedOn};
-      let url = 'http://question-answer-johnl3.c9users.io/questions';
-      //let url = 'https://jl-question-answer.herokuapp.com/questions';
+      
+      let url = '/questions';
+      
       $.ajax({
         type : 'POST',
         url : url,
@@ -153,25 +158,7 @@ $('.sqr').click(function(e){
             $('.q-a-outer').css('display','flex');
         }
       });
-  } else {
-    /*if($(this).hasClass('all-forty')) {
-      let clickedOn = $(this).attr('id');
-      let data = {"quest_id": clickedOn};
-      $.ajax({
-        type : 'POST',
-        url : "http://question-answer-johnl3.c9users.io/wrong",
-        contentType: 'application/json;charset=UTF-8',
-        dataType: 'json',
-        data : JSON.stringify(data),
-        success: function(d){
-            console.log(d);
-           // previousData = d;
-            //createQA(d,clickedOn);
-           // $('.q-a-outer').css('display','flex');
-        }
-      });
-    }*/
-  }
+  } 
 });
 
 let previousData;
@@ -182,7 +169,7 @@ let answers = [];
 // post answer to question to server 
 $('#ans-button').click(()=>{
   
-  let _id = $('.surround').attr('id');
+  let _id = $('.surround').attr('name');
   
   if(Object.getOwnPropertyNames(previousData).length > 2) {
     $('input:checkbox:checked').each(function() {
@@ -222,8 +209,8 @@ $('#ans-button').click(()=>{
 });
 
 function postAnswers(data) {
-  let url = 'http://question-answer-johnl3.c9users.io/answer';
-  //let url = "https://jl-question-answer.herokuapp.com/answer";
+  let url = '/answer';
+  
   $.ajax({
       type : 'POST',
       url : url,
@@ -275,7 +262,7 @@ function gameOver() {
 
 //Display question on page add required elements
 function createQA(data, id) {
-$('.surround').attr('id', id);
+$('.surround').attr('name', id);
 
 if (Object.getOwnPropertyNames(data).length > 2) {
   

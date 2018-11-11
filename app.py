@@ -183,4 +183,4 @@ def exitgame(user):
     
 
 if __name__ == "__main__":
-    socketio.run(app,host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)
+    socketio.run(app,host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

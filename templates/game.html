@@ -72,14 +72,7 @@
         <button class='close-instructions'>CLOSE</button>
       </div>
     </div>
-    <div id='board'>
-        <div class="sqr-con">
-          {% for id,type in type_id %}
-          <div id='{{id}}' class='sqr'><span class='type'>{{type}}</span></div>
-          {% endfor %}
-        
-        </div>
-    </div>
+    
     <div class="q-a-outer">
       <div id='question-answer'>
         <div class="surround">
@@ -95,6 +88,16 @@
         </div>
       </div>
     </div>
+    
+    <div id='board'>
+        <div class="sqr-con">
+          {% for id,type in type_id %}
+          <div id='{{id}}' class='sqr'><span class='type'>{{type}}</span></div>
+          {% endfor %}
+        
+        </div>
+    </div>
+  
     <div class='error-msg'>
       <span>You cannot submit an EMPTY ANSWER</span>
     </div>
